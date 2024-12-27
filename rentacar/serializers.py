@@ -1,52 +1,28 @@
 from rest_framework import serializers
-from .models import Order, Car, Company
-
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = "__all__"
+from .models import Car, Order, UserHistory, CarLocationHistory
 
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
-        fields = "__all__"
+        fields = ['id', 'title', 'color', 'number', 'price', 'lat', 'lon', 'available']
+
 
 class OrderSerializer(serializers.ModelSerializer):
-    total = serializers.SerializerMethodField()
-    username = serializers.CharField(source='user.username', read_only=True)
-    rental_duration_in_minutes = serializers.SerializerMethodField()
-    
+    # car = CarSerializer()
+    # user = serializers.StringRelatedField()  # Display the username of the user who made the order
+
     class Meta:
         model = Order
-        fields = ['car', 'days', 'minutes', 'total', 'username', 'rental_duration_in_minutes']
-
-    def get_total(self, obj):
-        total_cost = (obj.car.renta_daily * obj.days) 
-        total_cost += (obj.car.per_minute * obj.minutes) 
-        return total_cost
-
-    def get_rental_duration_in_minutes(self, obj):
-        return obj.rental_duration_in_minutes()  
-
-    def create(self, validated_data):
-        user = self.context['request'].user
-        validated_data['user'] = user
-        return super().create(validated_data)
+        fields = ['id', 'car', 'user', 'start_date', 'end_date', 'place_of_order', 'place_of_return', 'status']
 
 
-from django.contrib.auth.models import User
-
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
-
+class UserHistorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['username', 'password', 'email']
+        model = UserHistory
+        fields = ['id', 'user', 'car', 'rental_start', 'rental_end']
 
-    def create(self, validated_data):
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            email=validated_data.get('email', ''),
-            password=validated_data['password']
-        )
-        return user
+
+class CarLocationHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarLocationHistory
+        fields = ['id', 'car', 'lat', 'lon', 'timestamp']
