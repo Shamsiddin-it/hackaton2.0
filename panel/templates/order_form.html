@@ -1,0 +1,11 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>{% if form.instance.pk %}Edit Order{% else %}Add New Order{% endif %}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+  <a href="{% url 'order_list' %}">Back to Order List</a>
+{% endblock %}

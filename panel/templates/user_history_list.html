@@ -1,0 +1,27 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>User History</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Action</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for history in histories %}
+      <tr>
+        <td>{{ history.user.username }}</td>
+        <td>{{ history.action }}</td>
+        <td>{{ history.timestamp }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3" style="text-align: center;">No user history found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

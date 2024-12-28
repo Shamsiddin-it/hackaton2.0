@@ -1,0 +1,37 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Cars List</h1>
+  <a href="{% url 'car_create' %}" class="add-car">Add New Car</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Color</th>
+        <th>Number</th>
+        <th>Price</th>
+        <th>Available</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for car in cars %}
+      <tr>
+        <td>{{ car.title }}</td>
+        <td>{{ car.color }}</td>
+        <td>{{ car.number }}</td>
+        <td>${{ car.price }}</td>
+        <td>{{ car.available|yesno:"Yes,No" }}</td>
+        <td class="actions">
+          <a href="{% url 'car_update' car.pk %}" class="edit">Edit</a>
+          <a href="{% url 'car_delete' car.pk %}">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" style="text-align: center;">No cars available.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

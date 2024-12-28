@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Car Rental</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        nav {
+            background-color: #0044cc;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffdd57;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #0044cc;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Add any styles for content here */
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'car_list' %}">Cars</a>
+        <a href="{% url 'order_list' %}">Orders</a>
+        <a href="{% url 'user_history_list' %}">User History</a>
+        <a href="{% url 'rented_cars_map' %}">Rented Cars Map</a> 
+    </nav>
+
+    <hr>
+
+    <!-- Block content has been corrected here -->
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <hr>
+    <footer>
+        <p>&copy; 2024 Django Car Rental System</p>
+    </footer>
+</body>
+</html>

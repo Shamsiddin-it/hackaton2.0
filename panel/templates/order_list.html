@@ -1,0 +1,35 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Order List</h1>
+  <a href="{% url 'order_create' %}" class="add-order">Add New Order</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Car</th>
+        <th>User</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>{{ order.number }}</td>
+        <td>{{ order.car.title }}</td>
+        <td>{{ order.user.username }}</td>
+        <td>{{ order.status }}</td>
+        <td>
+          <a href="{% url 'order_update' order.pk %}">Edit</a>
+          <a href="{% url 'order_delete' order.pk %}">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" style="text-align: center;">No orders available.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
