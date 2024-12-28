@@ -135,11 +135,11 @@ PASSWORD_HASHERS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',  # Basic authentication
+        'rest_framework.authentication.SessionAuthentication',  # Use session-based authentication
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Ensure the user is authenticated
-    ],
+        'rest_framework.permissions.IsAuthenticated',  # Requires user to be authenticated
+    ]
 }
 
 CORS_ALLOW_ALL_ORIGINS = True  

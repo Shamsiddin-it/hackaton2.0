@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rented Cars Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCx0MQVef_0-g_tanOlCAjcgvQF1rYreks&callback=initMap" async defer></script>
     <style>
         #map {
             height: 600px;
@@ -14,25 +13,51 @@
     </style>
 </head>
 <body>
+    <a href="{% url "home" %}">Home</a>
     <h1>Rented Cars Map</h1>
 
     <div id="map"></div>
 
     <script>
-        // Initialize the map (centered on a default location)
-        var map = L.map('map').setView([51.505, -0.09], 13); // Change to default center if needed
+        var map;
+        var markers = []; // Список маркеров для автомобилей
 
-        // Add a tile layer to the map (using OpenStreetMap tiles here)
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        // Функция инициализации карты
+        function initMap() {
+            // Инициализируем карту и задаем её параметры
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 38.58, lng: 68.78 }, // Центр карты (Таджикистан)
+                zoom: 7,
+            });
 
-        // Add markers for each car location from Django context
-        {% for car_location in rented_cars %}
-            var marker = L.marker([{{ car_location.latitude }}, {{ car_location.longitude }}])
-                .addTo(map)
-                .bindPopup("<b>{{ car_location.car.title }}</b><br>Timestamp: {{ car_location.timestamp }}");
-        {% endfor %}
+            // Получаем данные о машинах из Django-шаблона
+            {% for car in rented_cars %}
+                var latitude = parseFloat("{{ car.lat }}");
+                var longitude = parseFloat("{{ car.lon }}");
+                var title = "{{ car.title }}";
+                var color = "{{ car.color }}";
+                var number = "{{ car.number }}";
+
+                // Создаем маркер для каждой машины
+                var marker = new google.maps.Marker({
+                    position: { lat: latitude, lng: longitude },
+                    map: map,
+                    title: title
+                });
+
+                // Создаем информационное окно для маркера
+                var infowindow = new google.maps.InfoWindow({
+                    content: "<b>" + title + "</b><br>Color: " + color + "<br>Number: " + number
+                });
+
+                // Открываем инфовсплывающее окно при клике на маркер
+                marker.addListener("click", function() {
+                    infowindow.open(map, marker);
+                });
+
+                markers.push(marker); // Добавляем маркер в список
+            {% endfor %}
+        }
     </script>
 </body>
 </html>

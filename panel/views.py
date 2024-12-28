@@ -88,10 +88,11 @@ from rentacar.models import CarLocationHistory
 
 
 from django.shortcuts import render
-from rentacar.models import CarLocationHistory
+from rentacar.models import Car
 
 def rented_cars_map(request):
-    # Fetch the car locations (for rented cars or all cars)
-    rented_cars = CarLocationHistory.objects.all()
+    # Получаем данные о машинах
+    rented_cars = Car.objects.all()
 
+    # Передаем данные в шаблон
     return render(request, 'rented_cars_map.html', {'rented_cars': rented_cars})
