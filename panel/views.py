@@ -50,7 +50,7 @@ def order_create(request):
         form = OrderForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('order_list')
+            return redirect('order_list')   
     else:
         form = OrderForm()
     return render(request, 'order_form.html', {'form': form})

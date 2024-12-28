@@ -137,9 +137,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',  # Use session-based authentication
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Requires user to be authenticated
-    ]
+    
 }
 
 CORS_ALLOW_ALL_ORIGINS = True  
