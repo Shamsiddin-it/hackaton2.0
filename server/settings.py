@@ -40,11 +40,8 @@ INSTALLED_APPS = [
     'rentacar.apps.RentacarConfig',
     'rest_framework',
     'drf_yasg',
-<<<<<<< HEAD
     'panel.apps.PanelConfig',
-=======
     'corsheaders',
->>>>>>> c9ef77a3a2c03f818ccd5b29afb0331a85f9345d
 ]
 
 MIDDLEWARE = [
