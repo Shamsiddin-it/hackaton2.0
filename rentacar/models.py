@@ -5,9 +5,9 @@ class Car(models.Model):
     title = models.CharField(max_length=255)
     color = models.CharField(max_length=50)
     number = models.CharField(max_length=15, unique=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    lat = models.DecimalField(max_digits=9, decimal_places=6)  # Latitude
-    lon = models.DecimalField(max_digits=9, decimal_places=6)  # Longitude
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=1000)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, default=38.5403)  # Latitude
+    lon = models.DecimalField(max_digits=9, decimal_places=6, default=68.4589)  # Longitude
     available = models.BooleanField(default=True)  # Track if car is available
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,9 +1,93 @@
-{% extends 'base_generic.html' %}
-
+{% extends "base_generic.html" %}
 {% block content %}
+<style>
+  /* General page styling */
+h1 {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Add New Car button styling */
+.add-car {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.add-car:hover {
+    background-color: #45a049;
+}
+
+/* Styling the table */
+table.cars-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table.cars-list th, table.cars-list td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table.cars-list th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table.cars-list tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table.cars-list tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Actions column styling */
+.actions a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.actions a:hover {
+    color: #2980b9;
+}
+
+.actions .delete {
+    color: #e74c3c;
+}
+
+.actions .delete:hover {
+    color: #c0392b;
+}
+
+/* Centering the "No cars available" message */
+table.cars-list td[colspan="6"] {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+}
+
+</style>
   <h1>Cars List</h1>
+  
+  <!-- Styling the Add New Car link -->
   <a href="{% url 'car_create' %}" class="add-car">Add New Car</a>
-  <table>
+  
+  <!-- Styling the table -->
+  <table class="cars-list">
     <thead>
       <tr>
         <th>Title</th>
@@ -24,7 +108,7 @@
         <td>{{ car.available|yesno:"Yes,No" }}</td>
         <td class="actions">
           <a href="{% url 'car_update' car.pk %}" class="edit">Edit</a>
-          <a href="{% url 'car_delete' car.pk %}">Delete</a>
+          <a href="{% url 'car_delete' car.pk %}" class="delete">Delete</a>
         </td>
       </tr>
       {% empty %}
@@ -34,4 +118,5 @@
       {% endfor %}
     </tbody>
   </table>
+
 {% endblock %}
